@@ -6,6 +6,7 @@
 groupadd -g $SQUEEZE_GID squeezeboxserver
 
 useradd -u $SQUEEZE_UID -g $SQUEEZE_GID \
+	-G audio \
 	-d /usr/share/squeezeboxserver/ \
 	-c 'Logitech Media Server' \
 	squeezeboxserver

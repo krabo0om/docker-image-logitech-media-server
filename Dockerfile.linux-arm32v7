@@ -1,22 +1,25 @@
 FROM arm32v7/debian:stretch-slim
-COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 LABEL maintainer="Lars Kellogg-Stedman <lars@oddbit.com>"
 LABEL maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>"
+Label maintainer="Paul Genssler <derp@mailbox.org>"
 
-ENV SQUEEZE_VOL /srv/squeezebox
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
-ENV PACKAGE_URL=http://downloads-origin.slimdevices.com/nightly/?ver=7.9
-ENV PACKAGE_VERSION=7.9.2~1524841547
-ENV ARCH=arm
 
 # Install requirements and utilities
 RUN apt-get update && \
     apt-get -y install curl wget nano faad flac lame sox libio-socket-ssl-perl \
     iputils-ping \
     iproute2 \
+    alsa-tools alsa-utils \
     && apt-get clean
+
+ENV SQUEEZE_VOL /srv/squeezebox
+ENV PACKAGE_URL=http://downloads-origin.slimdevices.com/nightly/?ver=7.9
+ENV PACKAGE_VERSION=7.9.2~1557815622
+ENV ARCH=arm
 
 # Download and install nightly
 RUN wget -r --no-directories --no-parent -A 'logitechmediaserver_'${PACKAGE_VERSION}'_'${ARCH}'.deb' ${PACKAGE_URL} && \
