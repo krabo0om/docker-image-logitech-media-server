@@ -13,6 +13,7 @@ Run Directly:
                -v /etc/timezone:/etc/timezone:ro \
                -v <local-state-dir>:/srv/squeezebox \
                -v <audio-dir>:/srv/music \
+               --devices /dev/snd \
                larsks/logitech-media-server
 
 
@@ -21,6 +22,16 @@ on port 80 (so you can use `http://yourserver/` without a port number
 as the URL), you can add `-p 80:9000`, but you *must* also include `-p
 9000:9000` because the players expect to be able to contact the server
 on that port.
+
+## Adding a sound device
+
+Use `aplay -L` to get a list of your devices. Add the card and device ID to get the correct identifier (e.g. plughw:1,0 for a USB sound card). Now, in the LMS server interface, install the `WaveInput` plugin, then add a new favorite. Give it a name and as URL "wavin:\<name:,card,device\>" (e.g. `wavin:plughw:1,0`).
+
+Important changes to the docker file are:
+- add squeezeboxserver to the `audio` group
+- install packages `alsa-utils` and `alsa-tools`
+
+When running the container, add `-device /dev/snd`.
 
 ## Using docker-compose
 
