@@ -18,7 +18,7 @@ RUN apt-get update && \
 
 ENV SQUEEZE_VOL /srv/squeezebox
 ENV PACKAGE_URL=http://downloads-origin.slimdevices.com/nightly/?ver=7.9
-ENV PACKAGE_VERSION=7.9.2~1565967976
+ENV PACKAGE_VERSION=7.9.3~1591161343
 ENV ARCH=arm
 
 # Download and install nightly
